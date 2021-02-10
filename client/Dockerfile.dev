@@ -1,0 +1,10 @@
+FROM node:alpine
+WORKDIR '/app'
+COPY ./package.json ./
+RUN npm install
+RUN adduser node root
+RUN chmod -R 775 /app/node_modules
+RUN chown -R node:root /app/node_modules
+COPY . .
+USER node
+CMD ["npm", "run", "start"]
