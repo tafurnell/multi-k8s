@@ -5,18 +5,18 @@ services:
 
 before_install:
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-  - docker build -t tafurnell/multi-docker-react-test -f ./client/Dockerfile.dev ./client
+  - docker build -t tfurnell/multi-docker-react-test -f ./client/Dockerfile.dev ./client
 
 script:
-  - docker run -e CI=true tafurnell/multi-docker-react-test npm run test -- --coverage
+  - docker run -e CI=true tfurnell/multi-docker-react-test npm run test -- --coverage
 
 after_success:
-  - docker build -t tafurnell/multi-client ./client
-  - docker build -t tafurnell/multi-nginx ./nginx
-  - docker build -t tafurnell/multi-server ./server
-  - docker build -t tafurnell/multi-worker ./worker
+  - docker build -t tfurnell/multi-client ./client
+  - docker build -t tfurnell/multi-nginx ./nginx
+  - docker build -t tfurnell/multi-server ./server
+  - docker build -t tfurnell/multi-worker ./worker
 
-  - docker push tafurnell/multi-client
-  - docker push tafurnell/multi-nginx
-  - docker push tafurnell/multi-server
-  - docker push tafurnell/multi-worker
+  - docker push tfurnell/multi-client
+  - docker push tfurnell/multi-nginx
+  - docker push tfurnell/multi-server
+  - docker push tfurnell/multi-worker
