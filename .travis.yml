@@ -25,7 +25,7 @@ deploy:
   provider: elasticbeanstalk
   region: eu-west-1
   app: multi-docker
-  env: Multidocker-env
+  env: Multidocker-env-1
   bucket_name: elasticbeanstalk-eu-west-1-230003386687
   bucket_path: docker-multi
   on:
