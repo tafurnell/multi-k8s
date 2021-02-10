@@ -1,0 +1,22 @@
+language: generic
+sudo: required
+services:
+  - docker
+
+before_install:
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+  - docker build -t tafurnell/multi-docker-react-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run -e CI=true tafurnell/multi-docker-react-test npm run test -- --coverage
+
+after_success:
+  - docker build -t tafurnell/multi-client ./client
+  - docker build -t tafurnell/multi-nginx ./nginx
+  - docker build -t tafurnell/multi-server ./server
+  - docker build -t tafurnell/multi-worker ./worker
+
+  - docker push tafurnell/multi-client
+  - docker push tafurnell/multi-nginx
+  - docker push tafurnell/multi-server
+  - docker push tafurnell/multi-worker
