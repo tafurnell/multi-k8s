@@ -15,7 +15,7 @@ after_success:
   - docker build -t tfurnell/multi-nginx ./nginx
   - docker build -t tfurnell/multi-server ./server
   - docker build -t tfurnell/multi-worker ./worker
-
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   - docker push tfurnell/multi-client
   - docker push tfurnell/multi-nginx
   - docker push tfurnell/multi-server
